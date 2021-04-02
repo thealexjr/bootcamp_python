@@ -1,0 +1,6 @@
+tple=( 0, 4, 132.42222, 10000, 12345.67)
+print("day_"+ str(tple[0]).zfill(2), end=', ')
+print("ex_" + str(tple[1]).zfill(2), end=' : ')
+print(str(round(tple[2], 2)), end=', ')
+print(format(tple[3], ".2e"), end=', ')
+print(format(tple[4], ".2e"))
