@@ -16,70 +16,80 @@ cookbook = {
   }
 }
 
-"""printing only the keys:
+"""#printing only the keys:
 for i in cookbook.keys():
         print(i)
 
-printing only the values
+#printing only the values
 for i in cookbook.values():
-        print(i)
-
-printing the items
-for i in cookbook.items():
         print(i)"""
 
-def print_recipe(recipe):
-    for cle in cookbook.items:
-            if cle == recipe:
-                    print(cookbook["cle"])
-    print("That recipe doesn't exist in this cookbook.")
-    
-  
+def recipe_info(cookbook, name):
+        print("Recipe for", name)
+        print("Ingredients: ", end='')
+        for ingredient in cookbook[name]['ingredients']:
+                print(ingredient, end='')
+                if ingredient != cookbook[name]["ingredients"][-1]:
+                        print(", ", end='')
+                else:
+                        print()
+        print("To be eaten for", cookbook[name]['meal'])
+        print("Takes", cookbook[name]['prep_time'], "minutes of cooking.\n")
+
 def delete_recipe(recipe):
     for cle in cookbook.items:
             if cle == recipe:
                     cookbook.pop('cle', None)
-            
-            
-def add_recipe(recipe,ingredients,meal,prep_time):
-    new_recipe = {
-      recipe: {
-      "ingredients": ingredients.split(","),
-      "meal": meal_type,
-      "prep_time": prep_time
-    }
-  }
-  cookbook.update(new_recipe)
-  
-def print_all_recipe():
-    for cle in cookbook.items:
-        print(cle)
-        
-print("Please select an option by typing the corresponding number:")
-                print("1: Add a recipe")
-                print("2: Delete a recipe")
-                print("3: Print a recipe")
-                print("4: Print the cookbook")
-                print("5: Quit")
-                x = input()
-                if x == "1":
-                     a = input("Please enter the recipe's name to add: ")
-                     b = input("Please enter the recipe's ingredients: ")
-                     c = input("Please enter the recipe's type of meal: ")
-                     d = input("Please enter the recipe's prep time: ")
-                    cookbook = add_recipe(a,b,c,d)
-                elif x == "2":
-                     name = input("Please enter the recipe's name to delete: ")
-                    delete_recipe(name)
-                elif x == "3":
-                    name = input("Please enter the recipe's name to get its details: ")
-                    print_recipe(name)
-                elif x == "4":
-                    print(cookbook)
-                elif x == "5":
-                    exit()
-                else:
-                    print("\nThis option doesn't exist, please type the corresponding number.\n")
+
+
+def add_recipe(cookbook):
+        print("Please enter the recipe's name")
+        name = input()
+        print("Please enter type of recipe")
+        meal = input()
+        print("Please enter ingredients separated by commas")
+        ingredients = input().split(',')
+        for each in ingredients:
+                each = each.strip()
+        print("Please enter preparation time in minutes")
+        prep = input()
+
+        cookbook[name] = {
+                "ingredients": ingredients,
+                "meal": meal,
+                "prep_time" : prep
+                }
+        print("Recipe", name, "added.\n")
+        return cookbook
+
+def print_cookbook(cookbook):
+        for each in cookbook:
+                recipe_info(cookbook, each)
+
+
+while (1):
+        print("Please select an option by typing the corresponding number:")
+        print("1: Add a recipe")
+        print("2: Delete a recipe")
+        print("3: Print a recipe")
+        print("4: Print the cookbook")
+        print("5: Quit")
+        x = input()
+        if x == "1":
+                cookbook = add_recipe(cookbook)
+        if x == "2":
+                delete_recipe(cookbook)
+        if x == "3":
+                recipe_name = input("recipe: ")
+                if recipe_name in cookbook:
+                        print_recipe(recipe_name)
+                print(recipe_name, " doesn't exist in the cookbook")
+        if x == "4":
+                print_cookbook(cookbook)
+        if x == "5":
+                exit()
+        else:
+                print("\nThis option doesn't exist, please type the corresponding number.To exit enter 5\n")
   
  
 
